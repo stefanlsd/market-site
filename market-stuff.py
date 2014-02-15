@@ -200,13 +200,18 @@ def format_table(table):
     table_output = ""
     for entry in table:
         classes = []
+        #print(entry.HubRelative)
         if entry.Volume == 0:
             classes.append('market_hole')
         elif not entry.HubRelative.startswith("?"):
             if entry.HubRelative[0] == '-':
                 classes.append('relative_negative')
+            elif float(entry.HubRelative.strip('%')) > 150.0:
+                print(entry.HubRelative.strip('%'))
+                classes.append('relative_positive_over')
             else:
                 classes.append('relative_positive')
+
 
         table_output += make_row("<td>", "</td>", entry, classes=classes) + "\n"
 
